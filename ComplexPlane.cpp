@@ -56,24 +56,27 @@ void ComplexPlane::zoomOut(){
   m_state = State::CALCULATING;
 }
 
-void ComplexPlane::setCenter(vector2i mousePixel){
-	Vector2f position = mapPixelToCoords(mousePixel);
-	m_place_center = positon;
+void ComplexPlane::setCenter(Vector2i mousePixel){
+	m_plane_center= mapPixelToCoords(mousePixel);
 	m_state = State::CALCULATING;
+//	Vector2f position = mapPixelToCoords(mousePixel);
+//	m_plane_center = position;
+//	m_state = State::CALCULATING;
 
 }
 
 void ComplexPlane::setMouseLocation(Vector2i mousePixel){
-	Vector2f positon = mapPixelToCoords(mousePixel);
-	m_mouseLocation.x = positon.x;
-	m_mouseLocation.y = position.y;
+/*	Vector2f position = mapPixelToCoords(mousePixel);
+	m_mouseLocation.x = position.x;
+	m_mouseLocation.y = position.y;*/
+	m_mouseLocation= mapPixelToCoords(mousePixel);
 }
 
 void ComplexPlane::loadText(Text& text){
     stringstream ss;
     ss<< "Mandelbrot set\n";
     ss<< "Center: " << m_plane_center.x << ", " << m_plane_center.y << "\n";
-    ss<< "Size: " << m_plane_size.x << ", " << m_plane_size.y<< "\n";
+    ss<< "Cursor {" << m_mouseLocation.x << ", "<< m_mouseLocation.y << "}\n";
     ss<< "Left click to zoom in\n";
     ss<< "Right click to zoom out\n";
     text.setString(ss.str());
@@ -137,7 +140,6 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel){
 	float Ymin = m_plane_center.y - m_plane_size.y / 2.0f;
 	float Ymax = m_plane_center.y + m_plane_size.y / 2.0f;
 	float x = ((float)mousePixel.x / m_pixel_size.x) * (Xmax - Xmin) + Xmin;
-	float y = ((float)mousePixel.y - m_pixel_size.y)/ m_pixel_size.y * (Ymax - Ymin) + Ymin;
+	float y = ((float)m_pixel_size.y - mousePixel.y)/ m_pixel_size.y * (Ymax - Ymin) + Ymin;
 	return Vector2f(x,y);
-
 }
