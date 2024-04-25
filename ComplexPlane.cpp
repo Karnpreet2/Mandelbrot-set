@@ -19,16 +19,23 @@ void ComplexPlane::draw(RenderTarget& target, RenderStates states) const{
 
 void ComplexPlane::updateRender(){
     if(m_state == State::CALCULATING){
+	    std::vector<std::thread> thread;
+	    thread.reserve(m_pixelHeight);
         for(int i = 0; i < m_pixel_size.y; i++){
+		thread.emplace_back([this,i](0{
             for(int j = 0; j < m_pixel_size.x; j++){
-                m_vArray[j+i* m_pixel_size.x].position = {(float)j, (float)i};
-                Vector2f position = mapPixelToCoords(Vector2i(j,i));
+                Vector2f position = mapPixelToCoords(Vector2i({j,i});
                 int iterations = countIterations(position);
-                Uint8 r, g, b;
+                
+		Uint8 r, g, b;
                 iterationsToRGB(iterations, r, g, b);
+		    
+		m_vArray[j+i* m_pixel_size.x].position = {(float)j, (float)i};
                 m_vArray[j + i * m_pixel_size.x].color = {r, g, b};
             }
+	});
         }
+	for (auto& thread : thread){thread.join();}
         m_state = State::DISPLAYING;
     }
 }
