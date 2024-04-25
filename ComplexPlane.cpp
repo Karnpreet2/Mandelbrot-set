@@ -56,6 +56,19 @@ void ComplexPlane::zoomOut(){
   m_state = State::CALCULATING;
 }
 
+void ComplexPlane::setCenter(vector2i mousePixel){
+	Vector2f position = mapPixelToCoords(mousePixel);
+	m_place_center = positon;
+	m_state = State::CALCULATING;
+
+}
+
+void ComplexPlane::setMouseLocation(Vector2i mousePixel){
+	Vector2f positon = mapPixelToCoords(mousePixel);
+	m_mouseLocation.x = positon.x;
+	m_mouseLocation.y = position.y;
+}
+
 void ComplexPlane::loadText(Text& text){
     stringstream ss;
     ss<< "Mandelbrot set\n";
