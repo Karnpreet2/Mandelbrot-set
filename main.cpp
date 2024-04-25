@@ -49,7 +49,7 @@ int main() {
           cout << "Mouse y: " << event.mouseButton.y << endl;
 
           complexPlane.zoomIn();
-          complexPlane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
+    //      complexPlane.setCenter(Vector2i(event.mouseButton.x, event.mouseButton.y));
         }
        
         else if (event.mouseButton.button == sf::Mouse::Right) 
@@ -62,12 +62,12 @@ int main() {
         cout << "Mouse y: " << event.mouseButton.y << endl;
 
         complexPlane.zoomOut();
-        complexPlane.setCenter( Vector2i(event.mouseButton.x, event.mouseButton.y));
+  //      complexPlane.setCenter( Vector2i(event.mouseButton.x, event.mouseButton.y));
         }
       }
       else if (event.type == sf::Event::MouseMoved) 
       {
-        complexPlane.setMouseLocation(Vector2i(event.mouseMove.x, event.mouseMove.y));
+//        complexPlane.setMouseLocation(Vector2i(event.mouseMove.x, event.mouseMove.y));
       }
         
     }

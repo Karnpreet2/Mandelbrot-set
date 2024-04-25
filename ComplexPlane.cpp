@@ -1,6 +1,7 @@
 #include "ComplexPlane.h"
 #include <complex>
 #include <cmath>
+#include <thread>
 
 ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight){
 	m_pixel_size = {pixelWidth, pixelHeight};
@@ -9,7 +10,7 @@ ComplexPlane::ComplexPlane(int pixelWidth, int pixelHeight){
 	m_plane_size = {BASE_WIDTH, BASE_HEIGHT * m_aspectRatio};
 	m_ZoomCount = 0;
 	m_state = State::CALCULATING;
-	m_vArray = setPrimitiveType(Points);
+	m_vArray.setPrimitiveType(Points);
 	m_vArray.resize(pixelWidth*pixelHeight);
 }
 
@@ -22,9 +23,9 @@ void ComplexPlane::updateRender(){
 	    std::vector<std::thread> thread;
 	    thread.reserve(m_pixelHeight);
         for(int i = 0; i < m_pixel_size.y; i++){
-		thread.emplace_back([this,i](0{
+		thread.emplace_back([this,i](){
             for(int j = 0; j < m_pixel_size.x; j++){
-                Vector2f position = mapPixelToCoords(Vector2i({j,i});
+                Vector2f position = mapPixelToCoords(Vector2i({j,i}));
                 int iterations = countIterations(position);
                 
 		Uint8 r, g, b;
@@ -87,7 +88,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b){
     	}
 	else {
 		size_t region = count/(MAX_ITER/5);
-		switch region{
+		switch (region){
 			case 0:
 			  r=255;
 			  g=0;
@@ -114,7 +115,7 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b){
 			  b=255;
 			  break;
 		}
-	]
+	}
 }
 
 Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel){
@@ -123,6 +124,7 @@ Vector2f ComplexPlane::mapPixelToCoords(Vector2i mousePixel){
 	float Ymin = m_plane_center.y - m_plane_size.y / 2.0f;
 	float Ymax = m_plane_center.y + m_plane_size.y / 2.0f;
 	float x = ((float)mousePixel.x / m_pixel_size.x) * (Xmax - Xmin) + Xmin;
-	float y = ((float)mousePixel.y - m_pixel_size.y)/ m_pixel_size.y) * (Ymax - Ymin) + Ymin;
+	float y = ((float)mousePixel.y - m_pixel_size.y)/ m_pixel_size.y * (Ymax - Ymin) + Ymin;
 	return Vector2f(x,y);
+
 }
