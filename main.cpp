@@ -16,7 +16,6 @@ int main() {
 
   Font font;
   font.loadFromFile("KOMIKAP_.ttf");
-  font.loadFromFile("KOMIKAP_.ttf");
   if (!font.loadFromFile("KOMIKAP_.ttf")) {
     cerr << "Something wrong with font" << endl;
     return 1;
