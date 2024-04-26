@@ -107,14 +107,14 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b){
 		size_t region = count/(MAX_ITER/5);
 		switch (region){
 			case 0:
-			  r=255;
-			  g=0;
-			  b=0;
+			  r=0;
+			  g=255;
+			  b=210;
 			  break;
 			case 1:
-			  r=255;
+			  r=0;
 			  g=180;
-			  b=0;
+			  b=255;
 			  break;
 			case 2:
 			  r=0;
@@ -122,12 +122,12 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b){
 			  b=75;
 			  break;
 			case 3:
-			  r=0;
-			  g=150;
+			  r=25;
+			  g=0;
 			  b=255;
 			  break;
 			case 4:
-			  r=130;
+			  r=135;
 			  g=0;
 			  b=255;
 			  break;
