@@ -1,4 +1,4 @@
-#Karnpreet Klair, Musa Rana
+//Karnpreet Klair, Musa Rana
 #include "ComplexPlane.h"
 #include <complex>
 #include <cmath>
